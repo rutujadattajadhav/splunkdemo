@@ -1,0 +1,24 @@
+<configuration>
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %X{correlationId} %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Custom Splunk HTTP Appender -->
+    <appender name="SPLUNK" class="com.rutuja.splunk.splunkdemo.config.SplunkHttpAppender">
+        <url>http://localhost:8088/services/collector</url>
+        <token>92c9b613-cec1-47ad-a4d8-bc33c0bc7dc3</token>
+        <encoder>
+            <pattern>{"time":"%d{UNIX_TIMESTAMP}","level":"%level","message":"%msg"}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="SPLUNK" />
+    </root>
+</configuration>
